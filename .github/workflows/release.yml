@@ -1,0 +1,78 @@
+name: Build WordPress Theme Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      REPOSITORY_FTP_HOST: repository.smartecommerce.it
+      REPOSITORY_FTP_UPDATES_PATH: /httpdocs/updates/themes
+      REPOSITORY_FTP_DOWNLOADS_PATH: /httpdocs/downloads/themes
+      REPOSITORY_FTP_USER: ${{ secrets.REPOSITORY_FTP_USER }}
+      REPOSITORY_FTP_PASSWORD: ${{ secrets.REPOSITORY_FTP_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: Resolve and validate version
+        id: version
+        shell: bash
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          HEADER_VERSION="$(grep -E '^Version:' style.css | head -n1 | sed -E 's/Version:[[:space:]]*//')"
+          CONSTANT_VERSION="$(grep -E "define\('SEXM_'\.'VERSION'" functions.php | head -n1 | sed -E "s/.*'([0-9.]+)'.*/\1/")"
+          test "$VERSION" = "$HEADER_VERSION"
+          test "$VERSION" = "$CONSTANT_VERSION"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+      - name: Validate theme
+        run: |
+          find . -name '*.php' -not -path './.git/*' -print0 | xargs -0 -n1 php -l
+          for test_file in tests/*test.php; do php "$test_file"; done
+      - name: Package theme
+        shell: bash
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          THEME_DIR="smart-emagazine"
+          PACKAGE="${THEME_DIR}-${VERSION}.zip"
+          mkdir -p "dist/${THEME_DIR}"
+          rsync -a ./ "dist/${THEME_DIR}/" --exclude '.git/' --exclude '.github/' --exclude 'dist/' --exclude 'tests/' --exclude '*.md' --exclude '*.zip' --exclude '*.sha256.txt'
+          (cd dist && zip -r "../${PACKAGE}" "${THEME_DIR}")
+          sha256sum "${PACKAGE}" > "${PACKAGE}.sha256.txt"
+          unzip -t "${PACKAGE}"
+          unzip -Z1 "${PACKAGE}" | grep -qx "${THEME_DIR}/style.css"
+          unzip -Z1 "${PACKAGE}" | grep -qx "${THEME_DIR}/functions.php"
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          PACKAGE="smart-emagazine-${VERSION}.zip"
+          gh release create "${GITHUB_REF_NAME}" "$PACKAGE" "${PACKAGE}.sha256.txt" --title "Smart eMagazine ${VERSION}" --notes "Release ${VERSION}"
+      - name: Build manifest
+        shell: bash
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          PACKAGE="smart-emagazine-${VERSION}.zip"
+          DOWNLOAD_URL="https://repository.smartecommerce.it/downloads/themes/${PACKAGE}"
+          SHA256="$(sha256sum "$PACKAGE" | awk '{print $1}')"
+          jq -n --arg version "$VERSION" --arg package "$DOWNLOAD_URL" --arg sha256 "$SHA256" --arg updated "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" '{type:"theme",package_type:"theme",name:"Smart eMagazine",slug:"smart-emagazine",version:$version,new_version:$version,download_url:$package,package:$package,homepage:"https://smartecommerce.it/prodotti/smart-emagazine/",requires:"6.5",tested:"7.1",requires_php:"7.4",author:"Smart eCommerce",description:"Tema WordPress editoriale per magazine, blog e giornali online.",changelog:"Distribuzione tramite Smart Repository.",sha256:$sha256,checksum_sha256:$sha256,last_updated:$updated,repository_url:"https://github.com/SmarteCommerceLab/smart-emagazine",sections:{description:"Tema WordPress editoriale per magazine, blog e giornali online.",changelog:"Distribuzione tramite Smart Repository."},banners:[],icons:[]}' > smart-emagazine.json
+      - name: Require repository credentials
+        run: test -n "$REPOSITORY_FTP_USER" && test -n "$REPOSITORY_FTP_PASSWORD"
+      - name: Deploy to Smart Repository
+        shell: bash
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          PACKAGE="smart-emagazine-${VERSION}.zip"
+          curl --fail --ftp-create-dirs --user "${REPOSITORY_FTP_USER}:${REPOSITORY_FTP_PASSWORD}" --upload-file "$PACKAGE" "ftp://${REPOSITORY_FTP_HOST}${REPOSITORY_FTP_DOWNLOADS_PATH}/${PACKAGE}"
+          curl --fail --ftp-create-dirs --user "${REPOSITORY_FTP_USER}:${REPOSITORY_FTP_PASSWORD}" --upload-file "${PACKAGE}.sha256.txt" "ftp://${REPOSITORY_FTP_HOST}${REPOSITORY_FTP_DOWNLOADS_PATH}/${PACKAGE}.sha256.txt"
+          curl --fail --ftp-create-dirs --user "${REPOSITORY_FTP_USER}:${REPOSITORY_FTP_PASSWORD}" --upload-file smart-emagazine.json "ftp://${REPOSITORY_FTP_HOST}${REPOSITORY_FTP_UPDATES_PATH}/smart-emagazine.json"
+      - name: Verify public deployment
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          test "$(curl --fail --silent "https://repository.smartecommerce.it/updates/themes/smart-emagazine.json?release=${GITHUB_RUN_ID}" | jq -r '.version')" = "$VERSION"
+          curl --fail --silent --head "https://repository.smartecommerce.it/downloads/themes/smart-emagazine-${VERSION}.zip" >/dev/null

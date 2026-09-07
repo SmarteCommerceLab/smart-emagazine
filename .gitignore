@@ -1,0 +1,5 @@
+dist/
+*.zip
+*.sha256.txt
+.DS_Store
+Thumbs.db
