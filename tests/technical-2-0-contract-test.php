@@ -8,7 +8,7 @@ $customizer = file_get_contents($root . '/lib/customizer.php');
 foreach (array('wp_nonce_field', 'sem_can_save_metabox', 'sanitize_text_field', 'sanitize_key', 'sem_sanitize_slug_list_json') as $needle) {
 	if (strpos($metaboxes, $needle) === false) { fwrite(STDERR, "Missing metabox protection: {$needle}\n"); exit(1); }
 }
-foreach (array('add_theme_page', 'Sistema', 'Assistenza', 'current_user_can', 'diagnostics', 'sem_check_updates') as $needle) {
+foreach (array('add_menu_page', 'Sistema', 'Assistenza', 'current_user_can', 'diagnostics', 'sem_check_updates') as $needle) {
 	if (strpos($combined, $needle) === false) { fwrite(STDERR, "Missing admin support contract: {$needle}\n"); exit(1); }
 }
 foreach (array('header-index.php', 'footer-index.php', 'header-page.php', 'footer-page.php') as $file) {

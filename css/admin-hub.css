@@ -1,0 +1,362 @@
+.sem-admin {
+	--sem-admin-header: #1d2327;
+	--sem-admin-accent: #2271b1;
+	--sem-admin-accent-text: #fff;
+	min-height: calc(100vh - 32px);
+	margin-left: -20px;
+	background: #f0f0f1;
+	color: #1d2327;
+}
+
+.sem-admin *,
+.sem-admin *::before,
+.sem-admin *::after {
+	box-sizing: border-box;
+}
+
+.sem-admin-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	min-height: 76px;
+	padding: 14px 24px;
+	background: var(--sem-admin-header);
+	color: var(--sem-admin-accent-text);
+}
+
+.sem-admin-brand,
+.sem-admin-actions,
+.sem-admin-card,
+.sem-admin-stat,
+.sem-admin-integrations > div {
+	display: flex;
+	align-items: center;
+}
+
+.sem-admin-brand {
+	gap: 12px;
+}
+
+.sem-admin-brand strong,
+.sem-admin-brand small,
+.sem-admin-card strong,
+.sem-admin-card small,
+.sem-admin-stat small,
+.sem-admin-stat strong,
+.sem-admin-integrations small {
+	display: block;
+}
+
+.sem-admin-brand strong {
+	font-size: 17px;
+}
+
+.sem-admin-brand small {
+	margin-top: 2px;
+	font-size: 11px;
+	text-transform: uppercase;
+}
+
+.sem-admin-mark {
+	display: grid;
+	width: 38px;
+	height: 38px;
+	place-items: center;
+	background: var(--sem-admin-accent);
+	color: var(--sem-admin-accent-text);
+	font-weight: 700;
+}
+
+.sem-admin-actions {
+	gap: 10px;
+}
+
+.sem-admin-actions .button {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	border-color: rgba(255, 255, 255, .35);
+	background: transparent;
+	color: var(--sem-admin-accent-text);
+}
+
+.sem-admin-actions .button:hover,
+.sem-admin-actions .button:focus {
+	border-color: var(--sem-admin-accent-text);
+	background: rgba(255, 255, 255, .08);
+	color: var(--sem-admin-accent-text);
+}
+
+.sem-admin-actions .dashicons {
+	width: 18px;
+	height: 18px;
+	font-size: 18px;
+}
+
+.sem-admin-version {
+	padding: 5px 8px;
+	background: rgba(255, 255, 255, .12);
+	font-size: 12px;
+}
+
+.sem-admin-shell {
+	display: grid;
+	grid-template-columns: minmax(230px, 286px) minmax(0, 1fr);
+	max-width: 1680px;
+	margin: 0 auto;
+	background: #fff;
+	border-right: 1px solid #dcdcde;
+	border-left: 1px solid #dcdcde;
+}
+
+.sem-admin-sidebar {
+	padding: 20px 0;
+	border-right: 1px solid #dcdcde;
+	background: #fff;
+}
+
+.sem-admin-nav-section {
+	padding: 14px 20px 8px;
+	color: #50575e;
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.sem-admin-nav-item {
+	display: grid;
+	grid-template-columns: 34px minmax(0, 1fr);
+	gap: 10px;
+	align-items: start;
+	padding: 12px 18px;
+	border-left: 3px solid transparent;
+	color: #2c3338;
+	text-decoration: none;
+}
+
+.sem-admin-nav-item:hover,
+.sem-admin-nav-item:focus,
+.sem-admin-nav-item.is-active {
+	border-left-color: var(--sem-admin-accent);
+	background: #f0f6fc;
+	color: var(--sem-admin-accent);
+}
+
+.sem-admin-nav-item > .dashicons {
+	display: grid;
+	width: 34px;
+	height: 34px;
+	place-items: center;
+	border-radius: 4px;
+	background: #f0f0f1;
+}
+
+.sem-admin-nav-item small {
+	display: block;
+	margin-top: 3px;
+	color: #50575e;
+	font-size: 12px;
+	line-height: 1.4;
+}
+
+.sem-admin-main {
+	min-width: 0;
+	background: #f6f7f7;
+}
+
+.sem-admin-path {
+	padding: 17px 22px;
+	border-bottom: 1px solid #dcdcde;
+	color: #646970;
+}
+
+.sem-admin-path a {
+	color: var(--sem-admin-accent);
+	text-decoration: none;
+}
+
+.sem-admin-path span {
+	margin: 0 8px;
+}
+
+.sem-admin-body {
+	margin: 20px;
+	padding: 28px;
+	border: 1px solid #dcdcde;
+	background: #fff;
+}
+
+.sem-admin-page-title {
+	margin-bottom: 24px;
+	padding-bottom: 18px;
+	border-bottom: 1px solid #dcdcde;
+}
+
+.sem-admin-page-title h1 {
+	margin: 0 0 6px;
+	font-size: 25px;
+	line-height: 1.25;
+}
+
+.sem-admin-page-title p {
+	margin: 0;
+	color: #50575e;
+	font-size: 14px;
+}
+
+.sem-admin-stats,
+.sem-admin-cards {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 14px;
+	margin-bottom: 26px;
+}
+
+.sem-admin-stat,
+.sem-admin-card {
+	min-height: 92px;
+	gap: 12px;
+	padding: 16px;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	background: #fff;
+}
+
+.sem-admin-stat > .dashicons,
+.sem-admin-card > .dashicons {
+	width: 38px;
+	height: 38px;
+	padding: 9px;
+	border-radius: 4px;
+	background: #f0f6fc;
+	color: var(--sem-admin-accent);
+}
+
+.sem-admin-stat small,
+.sem-admin-card small {
+	margin-bottom: 4px;
+	color: #646970;
+}
+
+.sem-admin-stat strong,
+.sem-admin-card strong {
+	font-size: 15px;
+}
+
+.sem-admin-cards {
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sem-admin-card {
+	color: #1d2327;
+	text-decoration: none;
+}
+
+.sem-admin-card:hover,
+.sem-admin-card:focus {
+	border-color: var(--sem-admin-accent);
+	box-shadow: 0 0 0 1px var(--sem-admin-accent);
+}
+
+.sem-admin-integrations {
+	border-top: 1px solid #dcdcde;
+}
+
+.sem-admin-integrations > div {
+	display: grid;
+	grid-template-columns: 34px minmax(0, 1fr) auto;
+	gap: 12px;
+	min-height: 70px;
+	padding: 14px 10px;
+	border-bottom: 1px solid #dcdcde;
+}
+
+.sem-admin-integrations .dashicons {
+	color: #8c8f94;
+}
+
+.sem-admin-integrations .dashicons-yes-alt,
+.sem-admin-integrations .is-active {
+	color: #008a20;
+}
+
+.sem-admin-integrations b {
+	color: #646970;
+}
+
+.sem-admin-body .widefat {
+	margin-bottom: 16px;
+}
+
+.sem-admin-body textarea.code {
+	min-height: 240px;
+	resize: vertical;
+}
+
+.sem-admin-footer {
+	padding: 16px 24px;
+	border-top: 1px solid #dcdcde;
+	background: #fff;
+	color: #646970;
+	text-align: right;
+}
+
+.sem-admin-footer span {
+	margin: 0 5px;
+}
+
+@media (max-width: 1180px) {
+	.sem-admin-stats {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 960px) {
+	.sem-admin-shell {
+		grid-template-columns: 1fr;
+	}
+
+	.sem-admin-sidebar {
+		border-right: 0;
+		border-bottom: 1px solid #dcdcde;
+	}
+
+	.sem-admin-sidebar nav {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.sem-admin-nav-section {
+		grid-column: 1 / -1;
+	}
+
+	.sem-admin-cards {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 782px) {
+	.sem-admin {
+		margin-left: -10px;
+	}
+
+	.sem-admin-header {
+		align-items: flex-start;
+		padding: 14px;
+	}
+
+	.sem-admin-actions {
+		align-items: flex-end;
+		flex-direction: column;
+	}
+
+	.sem-admin-sidebar nav,
+	.sem-admin-stats {
+		grid-template-columns: 1fr;
+	}
+
+	.sem-admin-body {
+		margin: 10px;
+		padding: 20px;
+	}
+}

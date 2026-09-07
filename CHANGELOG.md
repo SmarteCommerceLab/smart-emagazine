@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.99]
+- Introduce l'hub amministrativo Smart eMagazine con Dashboard, Design, Menu, Integrazioni, Sistema e Assistenza.
+- Uniforma la struttura concettuale delle impostazioni ad AI-HTML mantenendo invariati menu e template legacy del frontend.
+- Collega gli strumenti nativi WordPress per Customizer, widget e posizioni menu.
+- Applica alle pagine del tema il design system coerente con lo schema colori amministrativo scelto dall'utente.
+- Riunisce diagnostica, aggiornamenti, dipendenze e report tecnico nelle rispettive sezioni.
+
 ## [1.0.98]
 - Ripristina la registrazione completa delle sezioni Smart eMagazine nel Customizer.
 - Carica gli hook del Customizer durante il bootstrap del tema senza dipendere dal valore prematuro di `is_customize_preview()`.

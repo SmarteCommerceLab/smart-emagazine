@@ -13,7 +13,7 @@ if (strpos($notices, 'Smart Customizer Frameworks') !== false) {
 foreach (array("'post.php'", "'post-new.php'", "'post' !== \$screen->post_type") as $needle) {
 	if (strpos($scripts, $needle) === false) { fwrite(STDERR, "Missing editor script scope: {$needle}\n"); exit(1); }
 }
-foreach (array("'themes.php'", 'appearance_page_smart-emagazine', 'sem-admin') as $needle) {
+foreach (array("'themes.php'", 'toplevel_page_sem-dashboard', 'smart-emagazine_page_sem-', 'sem-admin') as $needle) {
 	if (strpos($styles, $needle) === false) { fwrite(STDERR, "Missing administration style scope: {$needle}\n"); exit(1); }
 }
 echo "Smart eMagazine administration scope contract OK.\n";
