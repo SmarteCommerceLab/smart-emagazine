@@ -9,7 +9,7 @@
 	}
 ?>
 <!doctype html>
-<html <?php language_attributes(); ?>>
+<html lang="it">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="profile" href="http://gmpg.org/xfn/11">
@@ -19,7 +19,6 @@
 	<?php wp_head();?>
 </head>
 <body <?php body_class();?>><?php wp_body_open(); ?>
-	<a class="visually-hidden-focusable" href="#main"><?php esc_html_e('Vai al contenuto principale', 'smart-emagazine'); ?></a>
 	<?php /*SINGLE */ if(is_single()){if(get_theme_mod('journal_sidebar',false)==true and $post_adv_not_checkbox_value == ""){if(is_active_sidebar('single-header')){dynamic_sidebar('single-header');}}}?>
     <header class="sticky-top bg-white border-bottom">
         <nav class="header-main mx-auto navbar navbar-expand-lg">
@@ -63,16 +62,14 @@
 					>
                 </a>
             	<!-- Menu-Link -->
-				<button
-				class			= "flex-grow-2 text-black link border-0 bg-transparent"
-				type            = "button"
-				data-bs-toggle	= "offcanvas"
-				data-bs-target	= "#offcanvasNavbar"
-				aria-controls	= "offcanvasNavbar"
-				aria-label      = "<?php esc_attr_e('Apri menu di navigazione', 'smart-emagazine'); ?>"
-				>
-				<i class="fa-solid fa-bars-staggered fa-xl" aria-hidden="true"></i>
-				</button>
+                <a 
+                class			= "flex-grow-2 text-black link" 
+                data-bs-toggle	= "offcanvas" 
+                data-bs-target	= "#offcanvasNavbar" 
+                aria-controls	= "offcanvasNavbar"
+                >
+                <i class="fa-solid fa-bars-staggered fa-xl"></i>
+                </a>                
             </div>
         </nav>
     </header>
@@ -126,20 +123,19 @@
 	<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header border-bottom mb-2">
             <h5 class="offcanvas-title text-primary fw-bold flex-grow-1" id="offcanvasNavbarLabel"><?php bloginfo('name');?></h5>
-            <button
-			class			= "flex-grow-2 text-primary link border-0 bg-transparent"
-			type            = "button"
-			data-bs-dismiss = "offcanvas"
-			aria-label		= "<?php esc_attr_e('Chiudi menu', 'smart-emagazine'); ?>"
-			>
-			<i class="fa-solid fa-close fa-2x" aria-hidden="true"></i>
-			</button>
+            <a 
+            class			= "flex-grow-2 text-primary link" 
+            data-bs-dismiss = "offcanvas" 
+            aria-label		= "Close"
+            >
+            <i class="fa-solid fa-close fa-2x"></i>
+            </a>
         </div>                 
         <div class="offcanvas-body overflow-width-none">
         	<!-- Cerca -->
             <?php sem_search_form_html();?>
             <!-- Menu - Primo -->   
-			<?php $is_assigned_name = 'primo';$is_assigned = sem_has_resolved_nav_menu($is_assigned_name);if($is_assigned){$is_assigned_menu = sec_menu_get_info($is_assigned_name);?>
+			<?php $is_assigned_name = 'primo';$is_assigned = has_nav_menu($is_assigned_name);if($is_assigned){$is_assigned_menu = sec_menu_get_info($is_assigned_name);?>
             <div class="mb-3">
                 <div class="position-relative border-line mb-2">
                     <p class="h6 text-left text-uppercase text-nowrap mb-2 pb-1"><?php echo $is_assigned_menu->name; ?></p>              
@@ -169,7 +165,7 @@
 			</div>  
             <?php }?>
             <!-- Menu - Secondo -->   
-			<?php $is_assigned_name = 'secondo';$is_assigned = sem_has_resolved_nav_menu($is_assigned_name);if($is_assigned){$is_assigned_menu = sec_menu_get_info($is_assigned_name);?>
+			<?php $is_assigned_name = 'secondo';$is_assigned = has_nav_menu($is_assigned_name);if($is_assigned){$is_assigned_menu = sec_menu_get_info($is_assigned_name);?>
             <div class="mb-3">
                 <div class="position-relative border-line mb-2">
                     <p class="h6 text-left text-uppercase text-nowrap mb-2 pb-1"><?php echo $is_assigned_menu->name; ?></p>              
@@ -199,7 +195,7 @@
 			</div>  
             <?php }?>
             <!-- Menu - Terzo -->   
-			<?php $is_assigned_name = 'terzo';$is_assigned = sem_has_resolved_nav_menu($is_assigned_name);if($is_assigned){$is_assigned_menu = sec_menu_get_info($is_assigned_name);?>
+			<?php $is_assigned_name = 'terzo';$is_assigned = has_nav_menu($is_assigned_name);if($is_assigned){$is_assigned_menu = sec_menu_get_info($is_assigned_name);?>
             <div class="mb-3">
                 <div class="position-relative border-line mb-2">
                     <p class="h6 text-left text-uppercase text-nowrap mb-2 pb-1"><?php echo $is_assigned_menu->name; ?></p>              
@@ -229,7 +225,7 @@
 			</div>  
             <?php }?>            
             <!-- Menu - Locali -->   
-			<?php $is_assigned_name = 'localplus';$is_assigned = sem_has_resolved_nav_menu($is_assigned_name);if($is_assigned){$is_assigned_menu = sec_menu_get_info($is_assigned_name);?>
+			<?php $is_assigned_name = 'localplus';$is_assigned = has_nav_menu($is_assigned_name);if($is_assigned){$is_assigned_menu = sec_menu_get_info($is_assigned_name);?>
             <div class="mb-3">
                 <div class="position-relative border-line mb-2">
                     <p class="h6 text-left text-uppercase text-nowrap mb-2 pb-1"><?php echo $is_assigned_menu->name; ?></p>              

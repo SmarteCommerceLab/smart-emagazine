@@ -136,14 +136,13 @@
 	<div class="offcanvas offcanvas-start bg-light" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header border-bottom mb-2">
             <h5 class="offcanvas-title text-dark fw-bold flex-grow-1" id="offcanvasNavbarLabel"><?php bloginfo('name');?></h5>
-            <button
-			class			= "flex-grow-2 text-black link border-0 bg-transparent"
-			type            = "button"
-			data-bs-dismiss = "offcanvas"
-			aria-label		= "<?php esc_attr_e('Chiudi menu', 'smart-emagazine'); ?>"
-			>
-			<span class="link"><?php esc_html_e('Chiudi', 'smart-emagazine'); ?>&nbsp;</span><i class="fa-solid fa-close fa-xl" aria-hidden="true"></i>
-			</button>
+            <a 
+            class			= "flex-grow-2 text-black link" 
+            data-bs-dismiss = "offcanvas" 
+            aria-label		= "Close"
+            >
+            <span class="link">Chiudi&nbsp;</span><i class="fa-solid fa-close fa-xl"></i>
+            </a>
         </div>                 
         <div class="offcanvas-body px-0">
         	<!-- Cerca -->
@@ -152,7 +151,7 @@
 			</a>
             <hr>
             <!-- Menu - Topic -->   
-			<?php $is_assigned_name = 'topic';$is_assigned = sem_has_resolved_nav_menu($is_assigned_name);if($is_assigned){$is_assigned_menu = sec_menu_get_info($is_assigned_name);?>
+			<?php $is_assigned_name = 'topic';$is_assigned = has_nav_menu($is_assigned_name);if($is_assigned){$is_assigned_menu = sec_menu_get_info($is_assigned_name);?>
                 <p class="border-bottom border-1 text-black fw-bold p-2 text-uppercase"><?php echo $is_assigned_menu->name; ?></p>
                 <?php 
                     wp_nav_menu( array( 
@@ -178,7 +177,7 @@
                 ?>    
             <?php }?>
             <!-- Menu - Argomenti -->   
-			<?php $is_assigned_name = 'argomenti';$is_assigned = sem_has_resolved_nav_menu($is_assigned_name);if($is_assigned){$is_assigned_menu = sec_menu_get_info($is_assigned_name);?>
+			<?php $is_assigned_name = 'argomenti';$is_assigned = has_nav_menu($is_assigned_name);if($is_assigned){$is_assigned_menu = sec_menu_get_info($is_assigned_name);?>
                 <p class="border-bottom border-1 text-black fw-bold p-2 text-uppercase"><?php echo $is_assigned_menu->name; ?></p>
                 <?php 
                     wp_nav_menu( array( 
@@ -204,7 +203,7 @@
                 ?>    
             <?php }?>
             <!-- Menu - Primo -->   
-			<?php $is_assigned_name = 'primo';$is_assigned = sem_has_resolved_nav_menu($is_assigned_name);if($is_assigned){$is_assigned_menu = sec_menu_get_info($is_assigned_name);?>
+			<?php $is_assigned_name = 'primo';$is_assigned = has_nav_menu($is_assigned_name);if($is_assigned){$is_assigned_menu = sec_menu_get_info($is_assigned_name);?>
                 <p class="border-bottom border-1 text-black fw-bold p-2 text-uppercase"><?php echo $is_assigned_menu->name; ?></p>
                 <?php 
                     wp_nav_menu( array( 
@@ -230,7 +229,7 @@
                 ?>    
             <?php }?>
             <!-- Menu - Secondo -->   
-			<?php $is_assigned_name = 'secondo';$is_assigned = sem_has_resolved_nav_menu($is_assigned_name);if($is_assigned){$is_assigned_menu = sec_menu_get_info($is_assigned_name);?>
+			<?php $is_assigned_name = 'secondo';$is_assigned = has_nav_menu($is_assigned_name);if($is_assigned){$is_assigned_menu = sec_menu_get_info($is_assigned_name);?>
                 <p class="border-bottom border-1 text-black fw-bold p-2 text-uppercase"><?php echo $is_assigned_menu->name; ?></p>
                 <?php 
                     wp_nav_menu( array( 
@@ -256,7 +255,7 @@
                 ?>    
             <?php }?>
             <!-- Menu - Terzo -->   
-			<?php $is_assigned_name = 'terzo';$is_assigned = sem_has_resolved_nav_menu($is_assigned_name);if($is_assigned){$is_assigned_menu = sec_menu_get_info($is_assigned_name);?>
+			<?php $is_assigned_name = 'terzo';$is_assigned = has_nav_menu($is_assigned_name);if($is_assigned){$is_assigned_menu = sec_menu_get_info($is_assigned_name);?>
                 <p class="border-bottom border-1 text-black fw-bold p-2 text-uppercase"><?php echo $is_assigned_menu->name; ?></p>
                 <?php 
                     wp_nav_menu( array( 
@@ -282,7 +281,7 @@
                 ?>    
             <?php }?>            
             <!-- Menu - Locali -->   
-			<?php $is_assigned_name = 'localplus';$is_assigned = sem_has_resolved_nav_menu($is_assigned_name);if($is_assigned){$is_assigned_menu = sec_menu_get_info($is_assigned_name);?>
+			<?php $is_assigned_name = 'localplus';$is_assigned = has_nav_menu($is_assigned_name);if($is_assigned){$is_assigned_menu = sec_menu_get_info($is_assigned_name);?>
                 <p class="border-bottom border-1 text-black fw-bold p-2 text-uppercase"><?php echo $is_assigned_menu->name; ?></p>
                 <?php 
                     wp_nav_menu( array( 

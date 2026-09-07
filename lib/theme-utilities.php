@@ -31,8 +31,8 @@ if($option = sem_option_check('sem-content-wrapper-size')){
 * Get Menu Info
 */
 function sec_menu_get_info($location_name){
-	$resolved = function_exists('sem_resolve_nav_menu') ? sem_resolve_nav_menu($location_name) : array('menu_id' => 0);
-	$menu = !empty($resolved['menu_id']) ? wp_get_nav_menu_object($resolved['menu_id']) : false;
+	$locations = get_nav_menu_locations();
+	$menu = wp_get_nav_menu_object( $locations[$location_name]);
 	if(is_object($menu)){
 		#echo 'This menu exists!';
 		#echo 'This menu has ' . $menu->count . ' menu items.';
