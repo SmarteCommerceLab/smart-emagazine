@@ -329,9 +329,11 @@ class SEM_Public_Theme_Updater {
 	}
 
 	private function sanitize_theme_slug($slug) {
-		$slug = trim((string) $slug);
-		$slug = preg_replace('/[^A-Za-z0-9_-]/', '', $slug);
-		return is_string($slug) ? $slug : '';
+		$slug = trim(str_replace('\\', '/', (string) $slug));
+		if ($slug === '' || strpos($slug, '/') !== false || in_array($slug, array('.', '..'), true)) {
+			return '';
+		}
+		return sanitize_text_field($slug);
 	}
 
 	private function is_update_available(array $release) {

@@ -20,4 +20,9 @@ foreach (array('SEM_UPDATE_ENDPOINT', 'pre_set_site_transient_update_themes', 'u
 	}
 }
 
+if (strpos($updater, "preg_replace('/[^A-Za-z0-9_-]/'") !== false || strpos($updater, "strpos(\$slug, '/')") === false) {
+	fwrite(STDERR, "Legacy theme directories containing spaces must remain updateable.\n");
+	exit(1);
+}
+
 echo "Smart eMagazine release contract OK.\n";

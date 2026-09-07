@@ -2,7 +2,7 @@
 /*
 * define CONSTANT
 */
-define('SEXM_'.'VERSION'	, '1.0.92' );
+define('SEXM_'.'VERSION'	, '1.0.93' );
 define('SEXM_'.'VDATA'		, '202403280844');
 define('SEXM_'.'DIR_PATH'	, get_template_directory());
 define('SEXM_'.'DIR_URL'	, get_template_directory_uri( __FILE__ ) );
