@@ -41,7 +41,7 @@
                 <?php echo get_avatar( get_the_author_meta('ID'), $size = '70', $default = '', $alt = '', $args = array( 'class' => 'd-block me-2 img-thumbnail rounded-circle' ))?>
                 <div>
                     <a href="<?php echo get_author_posts_url(get_the_author_meta('ID'));?>" class="d-block link">
-                        <small><?php echo get_the_author(); ?></small>
+                        <small><?php echo esc_html(get_the_author()); ?></small><?php $sem_role = sem_get_editorial_role((int) get_the_author_meta('ID')); if ($sem_role !== '') : ?><small class="d-block text-muted"><?php echo esc_html($sem_role); ?></small><?php endif; ?>
                     </a>
                     <time pubdate class="single-time text-muted text-lowercase small" datetime="<?php echo get_the_date('c'); ?>" itemprop="datePublished" >
                         <span>Pubblicato il </span><?php echo get_the_date('j F, Y') ?>
@@ -49,39 +49,7 @@
                 </div>
             </div>
             <div id="post-<?php echo $post->ID;?>-single-share" class="py-4 py-lg-0 border-only-xs-top text-muted">
-                <a 
-                class	= "link link-social link-social-facebook text-center text-muted p-2 me-2 m-xl-0 border" 
-                href	= "https://www.facebook.com/sharer/sharer.php?u=<?php the_permalink();?>" 
-                title 	= "<?php the_title(); ?>" 
-                target 	= "_blank" 
-                rel 	= "noopener"
-                ><i class="fa-brands fa-facebook-square fa-xl"></i><small>&nbsp;Facebook</small></a>
-                <a 
-                class	= "link link-social link-social-twitter text-center text-muted p-2 me-2 m-xl-0 border"
-                href	= "https://twitter.com/intent/tweet?url=<?php the_permalink();?>"
-                title 	= "<?php the_title(); ?>" 
-                target 	= "_blank" 
-                rel 	= "noopener" 
-                ><i class="fa-brands fa-x-twitter fa-xl"></i></a>
-                <a 
-                class	= "link link-social link-social-whatsapp text-center text-muted p-2 me-2 m-xl-0 border"
-                href	= "whatsapp://send?text=<?php the_permalink();?>" 
-                title 	= "<?php the_title(); ?>" 
-                target 	= "_blank" 
-                rel 	= "noopener" 
-                ><i class="fa-brands fa-whatsapp fa-xl"></i></a>
-                <a 
-                class	= "link link-social link-social-linkedin text-center text-muted p-2 me-2 m-xl-0 border"
-                href	= "https://www.linkedin.com/cws/share?url=<?php the_permalink();?>"
-                title 	= "<?php the_title(); ?>" 
-                target 	= "_blank" 
-                rel 	= "noopener" 
-                ><i class="fa-brands fa-linkedin-in fa-xl"></i></a>
-                <a 
-                class	= "link link-social link-social-primary text-center text-muted p-2 border"
-                onclick	= 'window.navigator.share({title: "Condividi adesso: "+document.documentURI,text: "",url: "",});'
-                title 	= 'Condividi adesso'
-                ><i class="fa-solid fa-share-nodes fa-xl"></i></a>
+                <?php get_template_part('template-parts/share-buttons'); ?>
             </div>        
         </div>
         <div class="row mb-4">

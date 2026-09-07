@@ -2,8 +2,8 @@
 /*
 * define CONSTANT
 */
-define('SEXM_'.'VERSION'	, '1.0.93' );
-define('SEXM_'.'VDATA'		, '202403280844');
+define('SEXM_'.'VERSION'	, '1.0.95' );
+define('SEXM_'.'VDATA'		, '202609071930');
 define('SEXM_'.'DIR_PATH'	, get_template_directory());
 define('SEXM_'.'DIR_URL'	, get_template_directory_uri( __FILE__ ) );
 define('SEXM_'.'OPTION'		, 'smart-emagazine-option');
@@ -20,6 +20,7 @@ include_once ABSPATH.'wp-admin/includes/plugin.php';
 */
 require_once('lib/theme-function-tools.php');
 require_once('inc/class-sem-public-theme-updater.php');
+require_once('inc/class-sem-editorial-profile.php');
 
 SEM_Public_Theme_Updater::register(array(
 	'theme_slug'   => get_template(),
@@ -31,6 +32,7 @@ SEM_Public_Theme_Updater::register(array(
 * Theme-Reset
 */
 if (is_admin()){
+	require_once('inc/class-sem-admin-support.php');
 	require_once('lib/theme-option-register.php');
 	require_once('lib/theme-option-reset.php');
 }
@@ -67,6 +69,7 @@ if (!is_admin()){
 *
 */
 if (is_admin()){
+	require_once ('lib/metabox-security.php');
 	require_once ('lib/css-admin.php');
 	require_once ('lib/theme-image-size.php');	
 	require_once ('lib/javascript_admin.php');

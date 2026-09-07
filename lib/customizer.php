@@ -7,7 +7,11 @@
 //https://maddisondesigns.com/2017/05/the-wordpress-customizer-a-developers-guide-part-1
 //https://github.com/maddisondesigns/customizer-custom-controls
 ?>
-<?php if(is_plugin_active('smart-customizer-frameworks/smart-customizer-frameworks.php')) {
+<?php
+$sem_has_customizer_runtime = is_plugin_active( 'smart-bootstrap-manager/smart-bootstrap-manager.php' )
+	&& ( defined( 'MZR_VERSION' ) || class_exists( 'Smart_Customizer_Control_Toggle_Checkbox' ) );
+
+if ( $sem_has_customizer_runtime ) {
 // -- Panel 	- Smart eMagazine
 add_action('customize_register',function($wp_customize){
 	// -------------------------------------------------------------------------------------------------------------/ Panel - Smart eMagazne

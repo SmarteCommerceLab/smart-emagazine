@@ -4,17 +4,13 @@
 * https://digwp.com/2016/05/wordpress-admin-notices/
 */
 add_action( 'admin_notices',function() {
-	// -- Smart Customizer Frameworks
-	if(!is_plugin_active( 'smart-customizer-frameworks/smart-customizer-frameworks.php' ))		{
-		echo 	'<div class="notice notice-warning  is-dismissible"><p>Warning: Plugin Richiesti per Smart eMagazine Theme : <strong>Smart Customizer Frameworks</strong> - ver:1.1.8</p></div>';
-	}
-	// -- Smart Bootstrap Integration
+	// SBM provides the Customizer compatibility runtime used by the theme.
 	if(!is_plugin_active( 'smart-bootstrap-manager/smart-bootstrap-manager.php' )){
-		echo 	'<div class="notice notice-warning  is-dismissible"><p>Warning: Plugin Richiesti per Smart eMagazine Theme : <strong>Smart Bootstrap Integration</strong> - ver:1.0.9</p></div>';
+		echo 	'<div class="notice notice-warning is-dismissible"><p><strong>Smart eMagazine:</strong> Smart Bootstrap Manager è necessario per il design system e i controlli del Customizer.</p></div>';
 	}
-	// -- Smart Advertising Hosting
+	// Advertising slots are guarded in templates and remain an optional integration.
 	if(!is_plugin_active( 'smart-advertising-manager/smart-advertising-manager.php' ))		{
-		echo 	'<div class="notice notice-warning  is-dismissible"><p>Warning: Plugin Richiesti per Smart eMagazine Theme : <strong>Smart Advertising</strong> - ver:1.0.11</p></div>';
+		echo 	'<div class="notice notice-info is-dismissible"><p><strong>Smart eMagazine:</strong> Smart Advertising è opzionale e serve soltanto per attivare gli spazi pubblicitari gestiti.</p></div>';
 	}
 	// -- Smart Wordpress Lite
 	if(!is_plugin_active( 'smart-wordpress-lite-core/smart-wordpress-lite-core.php' )){

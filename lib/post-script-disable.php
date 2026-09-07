@@ -8,6 +8,7 @@ add_action('add_meta_boxes', function(){add_meta_box( 'post_script_not_box', 'Sm
 */
 function post_script_box_html($post){?>
 	<?php
+	wp_nonce_field('sem_save_script_controls', 'sem_script_controls_nonce');
 	// ==
 	$post_script_not_checkbox_value 						= get_post_meta($post->ID, "post-script-not-all-checkbox", true);
 	// ==
@@ -192,23 +193,16 @@ function post_script_box_html($post){?>
 * https://developer.wordpress.org/reference/functions/add_meta_box/
 * https://alessioangeloro.it/creare-metabox-wordpress-aggiungere-informazioni-pagine-articoli-custom-post-type-altro/
 ************/
-if(current_user_can('administrator')){add_action( 'save_post', 'post_script_save_post_meta_box', 10, 2 );}
+add_action('save_post_post', 'post_script_save_post_meta_box', 10, 2);
 function post_script_save_post_meta_box($post_id, $post){
-	// ==
-		$slug = "post";
-	// ==
-		#if(!current_user_can("edit_post", $post_id)){return $post_id;}
-		if(!current_user_can("administrator", $post_id)){return $post_id;}
-		if(defined("DOING_AUTOSAVE") && DOING_AUTOSAVE){return $post_id;}
- 	// ==     
-    	if($slug != $post->post_type){return $post_id;}
- 	// ==
-		$script_post = "post-script-not-all-checkbox";						if(isset($_POST[$script_post])){update_post_meta($post_id, $script_post, $_POST[$script_post]);}else{delete_post_meta( $post_id,$script_post);}
-		$script_post = "post-script-not-header-checkbox";					if(isset($_POST[$script_post])){update_post_meta($post_id, $script_post, $_POST[$script_post]);}else{delete_post_meta( $post_id,$script_post);}
-		$script_post = "post-script-not-footer-checkbox";					if(isset($_POST[$script_post])){update_post_meta($post_id, $script_post, $_POST[$script_post]);}else{delete_post_meta( $post_id,$script_post);}
-	// ==
-		$script_post = "post-script-not-header-code-list-checkbox-value";	if(isset($_POST[$script_post])){update_post_meta($post_id, $script_post,$_POST[$script_post]);}else{delete_post_meta($post_id,$script_post);}
-		$script_post = "post-script-not-footer-code-list-checkbox-value";	if(isset($_POST[$script_post])){update_post_meta($post_id, $script_post,$_POST[$script_post]);}else{delete_post_meta($post_id,$script_post);}
-	// ==
-		$script_post = "post-script-not-sidebar-single-list-checkbox-value";if(isset($_POST[$script_post])){update_post_meta($post_id, $script_post,$_POST[$script_post]);}else{delete_post_meta($post_id,$script_post);}
+	if (!$post instanceof WP_Post || $post->post_type !== 'post' || !current_user_can('manage_options')) return;
+	if (!sem_can_save_metabox((int) $post_id, 'sem_script_controls_nonce', 'sem_save_script_controls')) return;
+	foreach (array('post-script-not-all-checkbox', 'post-script-not-header-checkbox', 'post-script-not-footer-checkbox') as $key) {
+		if (isset($_POST[$key])) update_post_meta($post_id, $key, 'true');
+		else delete_post_meta($post_id, $key);
+	}
+	foreach (array('post-script-not-header-code-list-checkbox-value', 'post-script-not-footer-code-list-checkbox-value', 'post-script-not-sidebar-single-list-checkbox-value') as $key) {
+		if (isset($_POST[$key])) update_post_meta($post_id, $key, sem_sanitize_slug_list_json($_POST[$key]));
+		else delete_post_meta($post_id, $key);
+	}
 }
