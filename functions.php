@@ -2,8 +2,8 @@
 /*
 * define CONSTANT
 */
-define('SEXM_'.'VERSION'	, '1.0.98' );
-define('SEXM_'.'VDATA'		, '202609072315');
+define('SEXM_'.'VERSION'	, '1.0.99' );
+define('SEXM_'.'VDATA'		, '202609080015');
 define('SEXM_'.'DIR_PATH'	, get_template_directory());
 define('SEXM_'.'DIR_URL'	, get_template_directory_uri( __FILE__ ) );
 define('SEXM_'.'OPTION'		, 'smart-emagazine-option');

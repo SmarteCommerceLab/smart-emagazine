@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.99]
+- Allinea la struttura concettuale dei menu ad AI-HTML mantenendo i template PHP legacy.
+- Aggiunge posizioni principali, utility, secondarie e quattro colonne footer senza rimuovere le posizioni editoriali esistenti.
+- Introduce fallback affidabili tra posizioni equivalenti per evitare navigazioni vuote dopo il cambio tema.
+- Migliora accessibilita dell'offcanvas con skip link, pulsanti semantici ed etichette localizzate.
+
 ## [1.0.98]
 - Ripristina la registrazione completa delle sezioni Smart eMagazine nel Customizer.
 - Carica gli hook del Customizer durante il bootstrap del tema senza dipendere dal valore prematuro di `is_customize_preview()`.
