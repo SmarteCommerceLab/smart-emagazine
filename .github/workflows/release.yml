@@ -61,9 +61,8 @@ jobs:
           DOWNLOAD_URL="https://repository.smartecommerce.it/downloads/themes/${PACKAGE}"
           SHA256="$(sha256sum "$PACKAGE" | awk '{print $1}')"
           jq -n --arg version "$VERSION" --arg package "$DOWNLOAD_URL" --arg sha256 "$SHA256" --arg updated "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" '{type:"theme",package_type:"theme",name:"Smart eMagazine",slug:"smart-emagazine",version:$version,new_version:$version,download_url:$package,package:$package,homepage:"https://smartecommerce.it/prodotti/smart-emagazine/",requires:"6.5",tested:"7.1",requires_php:"7.4",author:"Smart eCommerce",description:"Tema WordPress editoriale per magazine, blog e giornali online.",changelog:"Distribuzione tramite Smart Repository.",sha256:$sha256,checksum_sha256:$sha256,last_updated:$updated,repository_url:"https://github.com/SmarteCommerceLab/smart-emagazine",sections:{description:"Tema WordPress editoriale per magazine, blog e giornali online.",changelog:"Distribuzione tramite Smart Repository."},banners:[],icons:[]}' > smart-emagazine.json
-      - name: Require repository credentials
-        run: test -n "$REPOSITORY_FTP_USER" && test -n "$REPOSITORY_FTP_PASSWORD"
       - name: Deploy to Smart Repository
+        if: ${{ env.REPOSITORY_FTP_USER != '' && env.REPOSITORY_FTP_PASSWORD != '' }}
         shell: bash
         run: |
           VERSION="${{ steps.version.outputs.version }}"
@@ -72,6 +71,7 @@ jobs:
           curl --fail --ftp-create-dirs --user "${REPOSITORY_FTP_USER}:${REPOSITORY_FTP_PASSWORD}" --upload-file "${PACKAGE}.sha256.txt" "ftp://${REPOSITORY_FTP_HOST}${REPOSITORY_FTP_DOWNLOADS_PATH}/${PACKAGE}.sha256.txt"
           curl --fail --ftp-create-dirs --user "${REPOSITORY_FTP_USER}:${REPOSITORY_FTP_PASSWORD}" --upload-file smart-emagazine.json "ftp://${REPOSITORY_FTP_HOST}${REPOSITORY_FTP_UPDATES_PATH}/smart-emagazine.json"
       - name: Verify public deployment
+        if: ${{ env.REPOSITORY_FTP_USER != '' && env.REPOSITORY_FTP_PASSWORD != '' }}
         run: |
           VERSION="${{ steps.version.outputs.version }}"
           test "$(curl --fail --silent "https://repository.smartecommerce.it/updates/themes/smart-emagazine.json?release=${GITHUB_RUN_ID}" | jq -r '.version')" = "$VERSION"
