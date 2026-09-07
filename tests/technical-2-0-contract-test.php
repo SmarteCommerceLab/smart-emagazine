@@ -22,7 +22,8 @@ if (strpos($pluginChecks, 'Plugin Richiesti per Smart eMagazine Theme : <strong>
 foreach (array('smart-bootstrap-manager/smart-bootstrap-manager.php', 'MZR_VERSION', 'Smart_Customizer_Control_Toggle_Checkbox') as $needle) {
 	if (strpos($customizer, $needle) === false) { fwrite(STDERR, "Missing embedded SBM Customizer runtime gate: {$needle}\n"); exit(1); }
 }
-if (strpos($pluginChecks, 'Smart Advertising è opzionale') === false) {
+if (strpos($pluginChecks, "'smart-advertising-manager/smart-advertising-manager.php' => 'Smart Advertising'") === false
+	|| strpos($pluginChecks, 'Integrazioni opzionali non attive') === false) {
 	fwrite(STDERR, "Smart Advertising is not identified as optional.\n"); exit(1);
 }
 echo "Smart eMagazine technical 2.0 contract OK.\n";

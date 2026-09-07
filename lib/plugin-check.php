@@ -1,31 +1,33 @@
 <?php
-/*
-* Plugin Dipendenze Notice
-* https://digwp.com/2016/05/wordpress-admin-notices/
-*/
-add_action( 'admin_notices',function() {
-	// SBM provides the Customizer compatibility runtime used by the theme.
-	if(!is_plugin_active( 'smart-bootstrap-manager/smart-bootstrap-manager.php' )){
-		echo 	'<div class="notice notice-warning is-dismissible"><p><strong>Smart eMagazine:</strong> Smart Bootstrap Manager è necessario per il design system e i controlli del Customizer.</p></div>';
+/**
+ * Theme integration notices shown only where they are actionable.
+ */
+add_action( 'admin_notices', static function () {
+	$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+	if ( ! $screen || ! in_array( $screen->id, array( 'themes', 'appearance_page_smart-emagazine-system' ), true ) ) {
+		return;
 	}
-	// Advertising slots are guarded in templates and remain an optional integration.
-	if(!is_plugin_active( 'smart-advertising-manager/smart-advertising-manager.php' ))		{
-		echo 	'<div class="notice notice-info is-dismissible"><p><strong>Smart eMagazine:</strong> Smart Advertising è opzionale e serve soltanto per attivare gli spazi pubblicitari gestiti.</p></div>';
+	if ( ! is_plugin_active( 'smart-bootstrap-manager/smart-bootstrap-manager.php' ) ) {
+		echo '<div class="notice notice-warning"><p><strong>Smart eMagazine:</strong> ' . esc_html__( 'Smart Bootstrap Manager è necessario per il design system e i controlli del Customizer.', 'smart-emagazine' ) . '</p></div>';
+		return;
 	}
-	// -- Smart Wordpress Lite
-	if(!is_plugin_active( 'smart-wordpress-lite-core/smart-wordpress-lite-core.php' )){
-		echo 	'<div class="notice notice-info is-dismissible"><p>Info: Plugin Ottimali per Smart eMagazine Theme : <strong>Smart Wordpress Lite Core</strong> - ver:1.0.5</p></div>';
+	$optional = array();
+	foreach ( array(
+		'smart-advertising-manager/smart-advertising-manager.php' => 'Smart Advertising',
+		'smart-wordpress-lite-core/smart-wordpress-lite-core.php' => 'Smart WordPress Lite Core',
+		'smart-seo-dots/smart-seo-dots.php' => 'Smart SEO Dots',
+		'smart-yoast-personalize/smart-yoast-personalize.php' => 'Smart Yoast Formatter',
+		'smart-google-tag-manager/smart-google-tag-manager.php' => 'Smart Google Tag Manager',
+	) as $plugin => $name ) {
+		if ( ! is_plugin_active( $plugin ) ) {
+			$optional[] = $name;
+		}
 	}
-	// -- Smart Seo Dots
-	if(!is_plugin_active( 'smart-seo-dots/smart-seo-dots.php' ))			{
-		echo 	'<div class="notice notice-info is-dismissible"><p>Info: Plugin Ottimali per Smart eMagazine Theme : <strong>Smart Seo Dots</strong> - ver:1.2.23</p></div>';
+	if ( $optional ) {
+		printf(
+			'<div class="notice notice-info is-dismissible"><p><strong>Smart eMagazine:</strong> %s %s</p></div>',
+			esc_html__( 'Integrazioni opzionali non attive:', 'smart-emagazine' ),
+			esc_html( implode( ', ', $optional ) )
+		);
 	}
-	// -- Smart Yoast Formatting
-	if(!is_plugin_active( 'smart-yoast-personalize/smart-yoast-personalize.php' ))		{
-		echo 	'<div class="notice notice-info is-dismissible"><p>Info: Plugin Ottimali per Smart eMagazine Theme : <strong>Smart Yoast Fomatter</strong> - ver:1.0.9</p></div>';
-	}
-	// -- Smart Google Tag Manager
-	if(!is_plugin_active( 'smart-google-tag-manager/smart-google-tag-manager.php' ))			{
-		echo 	'<div class="notice notice-info is-dismissible"><p>Info: Plugin Ottimali per Smart eMagazine Theme : <strong>Smart Google Tag Manager</strong> - ver:1.0.2</p></div>';
-	}
-});
+} );

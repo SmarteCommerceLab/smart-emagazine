@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.96]
+- Mostra gli avvisi delle integrazioni soltanto nelle schermate Aspetto pertinenti.
+- Riunisce i plugin opzionali mancanti in un unico messaggio non invasivo.
+- Carica CSS e JavaScript amministrativi soltanto nell'editor articoli e nelle pagine del tema.
+- Mantiene Smart Bootstrap Manager come unica dipendenza tecnica del Customizer.
+
 ## [1.0.95]
 - Centralizza la condivisione social di tutti i layout articolo in un componente accessibile.
 - Corregge URL e attributi di condivisione per Facebook, X, WhatsApp e LinkedIn.
