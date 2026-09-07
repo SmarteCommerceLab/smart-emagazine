@@ -8,8 +8,14 @@
 //https://github.com/maddisondesigns/customizer-custom-controls
 ?>
 <?php
-$sem_has_customizer_runtime = is_plugin_active( 'smart-bootstrap-manager/smart-bootstrap-manager.php' )
-	&& ( defined( 'MZR_VERSION' ) || class_exists( 'Smart_Customizer_Control_Toggle_Checkbox' ) );
+/* Ensure the embedded SCF compatibility layer is bootstrapped even when this
+ * theme is loaded after the plugins_loaded action has already completed. */
+if ( function_exists( 'smart_bootstrap_manager_load_customizer_framework' ) ) {
+	smart_bootstrap_manager_load_customizer_framework();
+}
+
+$sem_has_customizer_runtime = defined( 'MZR_VERSION' )
+	|| class_exists( 'Smart_Customizer_Control_Toggle_Checkbox' );
 
 if ( $sem_has_customizer_runtime ) {
 // -- Panel 	- Smart eMagazine

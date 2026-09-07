@@ -2,8 +2,8 @@
 /*
 * define CONSTANT
 */
-define('SEXM_'.'VERSION'	, '1.0.97' );
-define('SEXM_'.'VDATA'		, '202609072245');
+define('SEXM_'.'VERSION'	, '1.0.98' );
+define('SEXM_'.'VDATA'		, '202609072315');
 define('SEXM_'.'DIR_PATH'	, get_template_directory());
 define('SEXM_'.'DIR_URL'	, get_template_directory_uri( __FILE__ ) );
 define('SEXM_'.'OPTION'		, 'smart-emagazine-option');
@@ -46,12 +46,9 @@ require_once ('lib/amp.php');
 /*
 *
 */
-if(is_customize_preview()){
-	/*
-	* Caricamento Customizer
-	*/
-	require_once ('lib/customizer.php');
-}
+/* Register Customizer hooks during theme bootstrap. At this point a preview
+ * request is not guaranteed to have initialized the global Customizer yet. */
+require_once ('lib/customizer.php');
 /*
 *
 */

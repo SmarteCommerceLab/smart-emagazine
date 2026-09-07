@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.98]
+- Ripristina la registrazione completa delle sezioni Smart eMagazine nel Customizer.
+- Carica gli hook del Customizer durante il bootstrap del tema senza dipendere dal valore prematuro di `is_customize_preview()`.
+- Inizializza in modo esplicito il runtime SCF incorporato in Smart Bootstrap Manager quando necessario.
+
 ## [1.0.97]
 - Centralizza firma, data di pubblicazione, immagine in evidenza, tag e biografia autore dei cinque layout articolo.
 - Mantiene le varianti responsive tramite argomenti dei componenti condivisi.

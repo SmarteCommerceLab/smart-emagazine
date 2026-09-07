@@ -19,8 +19,15 @@ foreach (array('header-index.php', 'footer-index.php', 'header-page.php', 'foote
 if (strpos($pluginChecks, 'Plugin Richiesti per Smart eMagazine Theme : <strong>Smart Customizer Frameworks') !== false) {
 	fwrite(STDERR, "Legacy Smart Customizer Framework dependency notice is still active.\n"); exit(1);
 }
-foreach (array('smart-bootstrap-manager/smart-bootstrap-manager.php', 'MZR_VERSION', 'Smart_Customizer_Control_Toggle_Checkbox') as $needle) {
+foreach (array('MZR_VERSION', 'Smart_Customizer_Control_Toggle_Checkbox') as $needle) {
 	if (strpos($customizer, $needle) === false) { fwrite(STDERR, "Missing embedded SBM Customizer runtime gate: {$needle}\n"); exit(1); }
+}
+if (strpos($combined, "require_once ('lib/customizer.php');") === false
+	|| strpos($combined, 'if(is_customize_preview())') !== false) {
+	fwrite(STDERR, "Customizer hooks are still gated by an early preview-state check.\n"); exit(1);
+}
+if (strpos($customizer, 'smart_bootstrap_manager_load_customizer_framework') === false) {
+	fwrite(STDERR, "Customizer does not explicitly bootstrap the embedded SCF runtime.\n"); exit(1);
 }
 if (strpos($pluginChecks, "'smart-advertising-manager/smart-advertising-manager.php' => 'Smart Advertising'") === false
 	|| strpos($pluginChecks, 'Integrazioni opzionali non attive') === false) {
