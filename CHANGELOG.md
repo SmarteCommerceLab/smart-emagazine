@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.97]
+- Centralizza firma, data di pubblicazione, immagine in evidenza, tag e biografia autore dei cinque layout articolo.
+- Mantiene le varianti responsive tramite argomenti dei componenti condivisi.
+- Corregge escaping, rel dei collegamenti esterni e testo accessibile delle icone nei metadati editoriali.
+- Evita errori nei post senza tag.
+
 ## [1.0.96]
 - Mostra gli avvisi delle integrazioni soltanto nelle schermate Aspetto pertinenti.
 - Riunisce i plugin opzionali mancanti in un unico messaggio non invasivo.

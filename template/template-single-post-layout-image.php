@@ -14,20 +14,7 @@
 		<?php if(is_plugin_active('smart-advertising-manager/smart-advertising-manager.php')){echo adhost_adv_code_add($post->ID,'single-masthead',false);}?>
 		<div class="row d-flex justify-content-between align-items-top">
             <div class="col-12 col-lg-6 order-lg-2 mb-4">
-				<?php if (has_post_thumbnail()){?>
-                    <figure class="figure text-center d-table mx-auto mb-0">
-                        <?php the_post_thumbnail('large',array(
-                            'decoding'		=> "async",
-                            'fetchpriority'	=> "high",
-                            'class'			=> "img-fluid figure-img skip-lazy my-0",
-                            'alt'			=> get_the_title(),
-                            'title'			=> get_the_title()
-                        ));?>
-                        <?php $caption = get_the_post_thumbnail_caption();if(isset($caption) and !empty($caption)){?>
-                        <figcaption class="figure-caption text-center text-muted text-lowercase small"><span class="small"><?php echo get_the_post_thumbnail_caption();?></span></figcaption>
-                        <?php }?>
-                    </figure>
-                <?php }?>
+				<?php get_template_part('template-parts/single-featured-image', null, array('figure_class' => 'figure text-center d-table mx-auto mb-0', 'image_class' => 'img-fluid figure-img skip-lazy my-0', 'caption_class' => 'figure-caption text-center text-muted text-lowercase small')); ?>
             </div>        
         	<header class="col-12 col-lg-6 order-lg-1 mb-4">
             	<hgroup>
@@ -37,17 +24,7 @@
             </header>
         </div>
         <div class="d-md-flex justify-content-md-between align-items-center mb-4 border-top border-bottom">
-            <div class="d-flex justify-content-start align-items-center small my-4">
-                <?php echo get_avatar( get_the_author_meta('ID'), $size = '70', $default = '', $alt = '', $args = array( 'class' => 'd-block me-2 img-thumbnail rounded-circle' ))?>
-                <div>
-                    <a href="<?php echo get_author_posts_url(get_the_author_meta('ID'));?>" class="d-block link">
-                        <small><?php echo esc_html(get_the_author()); ?></small><?php $sem_role = sem_get_editorial_role((int) get_the_author_meta('ID')); if ($sem_role !== '') : ?><small class="d-block text-muted"><?php echo esc_html($sem_role); ?></small><?php endif; ?>
-                    </a>
-                    <time pubdate class="single-time text-muted text-lowercase small" datetime="<?php echo get_the_date('c'); ?>" itemprop="datePublished" >
-                        <span>Pubblicato il </span><?php echo get_the_date('j F, Y') ?>
-                    </time>
-                </div>
-            </div>
+            <?php get_template_part('template-parts/single-author-meta', null, array('class' => 'd-flex justify-content-start align-items-center small my-4')); ?>
             <div id="post-<?php echo $post->ID;?>-single-share" class="py-4 py-lg-0 border-only-xs-top text-muted">
                 <?php get_template_part('template-parts/share-buttons'); ?>
             </div>        
@@ -59,69 +36,8 @@
                     <?php #if(is_plugin_active('smart-advertising-manager/smart-advertising-manager.php')){echo adhost_adv_code_add($post->ID,'single-above',false);}?>
                     <?php the_content();?>
                     <?php if(is_plugin_active('smart-advertising-manager/smart-advertising-manager.php')){echo adhost_adv_code_add($post->ID,'single-bottom',false);}?>
-                    <div class="single-tag text-center mb-3 border-bottom">
-                        <ul class="list-inline text-primary-hover mt-2 mt-lg-3 py-2">
-                            <li class="list-inline-item fw-bold"><i class="fa-solid fa-tags"></i>&nbsp;</li>                    
-                            <?php $wpbtags = get_the_tags($post->ID);foreach ($wpbtags as $tag) {?>
-                                <li class="list-inline-item">
-                                <a class="link text-first-capitalize text-primary" href="<?php echo get_tag_link($tag->term_id) ?>" title="<?php echo $tag->name ?>"><?php echo $tag->name ?></a>
-                                </li>
-                            <?php }?>
-                        </ul>
-                    </div>
-                    <div class="single-author text-center text-sm-start mb-3" name="single-author">
-                        <div class="row d-flex justify-content-center justify-content-sm-start align-items-top">
-                            <div class="col-12 col-sm-2 text-center">
-                                <?php echo get_avatar( get_the_author_meta('ID'), 100)?>
-                            </div>
-                            <div class="col-12 col-sm-10">
-                                <p class="h5">
-                                    <a href="<?php echo get_author_posts_url(get_the_author_meta('ID'));?>" class="link">
-                                        <span class="fw-bold"><?php echo get_the_author(); ?></span>
-                                    </a>
-                                </p>
-                                <p class="text-muted small"><?php echo get_the_author_meta('user_description',$post->post_author);?></p>
-                                <div class="single-share">
-                                    <?php if(!empty(get_the_author_meta( 'facebook', $post->post_author ))) 	{?>
-                                        <a 
-                                        class	= "link link-social-editor text-center text-primary me-2" 
-                                        href	= "<?php echo get_the_author_meta( 'facebook', $post->post_author );?>" 
-                                        title 	= "Facebook" 
-                                        target 	= "_blank" 
-                                        rel 	= "nofollow"
-                                        ><i class="fa-brands fa-facebook-square fa-lg"></i></a>
-                                    <?php }?>
-                                    <?php if(!empty(get_the_author_meta( 'twitter', $post->post_author ))) 		{?>
-                                        <a 
-                                        class	= "link link-social-editor text-center text-primary me-2" 
-                                        href	= "<?php echo get_the_author_meta( 'twitter', $post->post_author );?>" 
-                                        title 	= "Twitter" 
-                                        target 	= "_blank" 
-                                        rel 	= "nofollow"
-                                        ><i class="fa-brands fa-square-x-twitter fa-lg"></i></a>
-                                    <?php }?>
-                                    <?php if(!empty(get_the_author_meta( 'instagram', $post->post_author ))) 	{?>
-                                        <a 
-                                        class	= "link link-social-editor text-center text-primary me-2" 
-                                        href	= "<?php echo get_the_author_meta( 'instagram', $post->post_author );?>" 
-                                        title 	= "Instagram" 
-                                        target 	= "_blank" 
-                                        rel 	= "nofollow"
-                                        ><i class="fa-brands fa-square-instagram fa-lg"></i></a>
-                                    <?php }?>
-                                    <?php if(!empty(get_the_author_meta( 'youtube', $post->post_author ))) 		{?>
-                                        <a 
-                                        class	= "link link-social-editor text-center text-primary me-2" 
-                                        href	= "<?php echo get_the_author_meta( 'youtube', $post->post_author );?>" 
-                                        title 	= "Youtube" 
-                                        target 	= "_blank" 
-                                        rel 	= "nofollow"
-                                        ><i class="fa-brands fa-youtube-square fa-lg"></i></a>
-                                    <?php }?>
-                                </div>                          
-                            </div>
-                        </div>
-                    </div>
+                    <?php get_template_part('template-parts/single-tags'); ?>
+                    <?php get_template_part('template-parts/single-author-box'); ?>
                     <?php if(is_plugin_active('smart-advertising-manager/smart-advertising-manager.php')){echo adhost_adv_code_add($post->ID,'single-below',false);}?>                    
                 </article>
             </div>
