@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.1]
+- Dichiara a Smart Builder Site il supporto Builder e Compose per Smart Site Home e Smart Site Blog.
+- Mantiene Smart Site Builder come superficie per i soli widget Builder.
+- Affida a SBS dati e rendering dei componenti, conservando nel tema la presentazione editoriale.
+
 ## [1.1.0]
 - Ripristina la safe area del pannello amministrativo rispetto al menu e alla Admin Bar di WordPress.
 - Allinea il wrapper alla spaziatura canonica del design system Smart su desktop e mobile.
