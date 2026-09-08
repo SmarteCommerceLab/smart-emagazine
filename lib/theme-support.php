@@ -6,6 +6,13 @@ add_action( 'after_setup_theme',function(){
 	add_theme_support('html5', array('gallery','caption'));
 	add_theme_support('menus');
 	add_theme_support('post-thumbnails');
+	add_theme_support('smart-builder-site', array(
+		'templates' => array(
+			'smart-site-home.php' => array('builder' => true, 'compose' => true),
+			'smart-site-blog.php' => array('builder' => true, 'compose' => true),
+			'smart-site-builder.php' => array('builder' => true, 'compose' => false),
+		),
+	));
 });
 /*
 * Gravatr - Customize fileds
