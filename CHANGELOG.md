@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.0]
+- Ripristina la safe area del pannello amministrativo rispetto al menu e alla Admin Bar di WordPress.
+- Allinea il wrapper alla spaziatura canonica del design system Smart su desktop e mobile.
+- Impedisce la regressione verso margini negativi che annullano il padding nativo di WordPress.
+
 ## [1.0.99]
 - Introduce l'hub amministrativo Smart eMagazine con Dashboard, Design, Menu, Integrazioni, Sistema e Assistenza.
 - Uniforma la struttura concettuale delle impostazioni ad AI-HTML mantenendo invariati menu e template legacy del frontend.

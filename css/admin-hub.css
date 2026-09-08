@@ -2,8 +2,8 @@
 	--sem-admin-header: #1d2327;
 	--sem-admin-accent: #2271b1;
 	--sem-admin-accent-text: #fff;
-	min-height: calc(100vh - 32px);
-	margin-left: -20px;
+	min-height: calc(100vh - 92px);
+	margin: 20px 20px 40px 2px;
 	background: #f0f0f1;
 	color: #1d2327;
 }
@@ -337,7 +337,8 @@
 
 @media (max-width: 782px) {
 	.sem-admin {
-		margin-left: -10px;
+		min-height: calc(100vh - 76px);
+		margin: 10px 10px 20px 0;
 	}
 
 	.sem-admin-header {

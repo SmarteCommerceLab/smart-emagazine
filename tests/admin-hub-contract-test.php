@@ -38,6 +38,16 @@ foreach (array('.sem-admin-header', '.sem-admin-sidebar', '.sem-admin-main', '--
 	}
 }
 
+if (strpos($css, 'margin: 20px 20px 40px 2px') === false) {
+	fwrite(STDERR, "The admin wrapper does not preserve the canonical WordPress safe area.\n");
+	exit(1);
+}
+
+if (preg_match('/margin(?:-left|-top)?\s*:\s*-/', $css)) {
+	fwrite(STDERR, "Negative wrapper margins must not cancel the WordPress admin spacing.\n");
+	exit(1);
+}
+
 if (strpos($scope, 'toplevel_page_sem-dashboard') === false || strpos($scope, 'smart-emagazine_page_sem-') === false) {
 	fwrite(STDERR, "Admin assets are not scoped to Smart eMagazine hub screens.\n");
 	exit(1);
